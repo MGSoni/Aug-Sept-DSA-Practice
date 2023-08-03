@@ -1,0 +1,28 @@
+public class Solution {
+
+    public ArrayList<ArrayList<Integer>> subsets(ArrayList<Integer> A) {
+        
+        ArrayList<ArrayList<Integer>> resultList = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> currList = new ArrayList<>();
+        Collections.sort(A);
+        backTrack(A,currList,0,resultList);
+
+        
+        
+        return resultList;
+
+    }
+    private void backTrack(ArrayList<Integer> A, ArrayList<Integer> currList,int N, ArrayList<ArrayList<Integer>> resultList){
+
+        if(N==A.size()){
+            
+            resultList.add(currList);
+            return;
+        }
+
+        backTrack(A,currList,N+1,resultList);
+        currList.add(A.get(N));
+        backTrack(A,currList,N+1,resultList);
+    }
+}
+
