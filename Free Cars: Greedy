@@ -1,0 +1,56 @@
+public class Solution {
+    public int solve(ArrayList<Integer> A, ArrayList<Integer> B) {
+
+        ArrayList<Purchase> purchaseList = new ArrayList<>();
+
+        for(int i=0;i<A.size();i++){
+            purchaseList.add(new Purchase(A.get(i),B.get(i)));
+        }
+
+        Collections.sort(purchaseList, new purchaseComparator());
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        int time=0;
+        for(Purchase p:purchaseList){
+
+            if(time<p.time){
+                pq.offer(p.profit);
+                time++;
+            }else{
+                if(pq.peek()<p.profit){
+                    pq.remove();
+                    pq.offer(p.profit);
+                }
+            }
+        }
+
+        int mod=1000*1000*1000+7;
+        long profit=0;
+        while(pq.size()>0){
+            profit += pq.peek();
+            profit%=mod;
+            pq.remove();
+        }
+
+        return (int)profit;
+
+    }
+
+   
+}
+class Purchase{
+        int time;
+        int profit;
+
+        Purchase(int time, int profit){
+            this.time=time;
+            this.profit=profit;
+        }
+    
+    }
+
+class purchaseComparator implements Comparator<Purchase>{
+        public int compare(Purchase p1,Purchase p2){
+            return p1.time-p2.time;
+        }
+}
