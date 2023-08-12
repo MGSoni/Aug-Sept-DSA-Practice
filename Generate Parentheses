@@ -1,0 +1,22 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        function(n,result,0,0,"");
+        return result;
+    }
+
+    private void function(int n, List<String> result, int open,int close,String bracket){
+        if(open==n && close==n){
+            result.add(bracket);
+            return;
+        }
+
+        if(open<n){
+            function(n,result,open+1,close,bracket+"(");
+        }
+
+        if(close<open){
+            function(n,result,open,close+1,bracket+")");
+        }
+    }
+}
