@@ -1,0 +1,30 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> solve(ArrayList<ArrayList<Integer>> A, int B) {
+
+
+
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        PriorityQueue<ArrayList<Integer>> pq = new PriorityQueue<>((x,y) -> ( +(y.get(1)*y.get(1)) +
+                                                                                (y.get(0)*y.get(0)) -
+                                                                              (x.get(1)*x.get(1)) -
+                                                                                (x.get(0)*x.get(0))
+                                                                            
+                                                                            )
+                                                                );
+
+        for(ArrayList<Integer> list: A){
+            pq.offer(list);
+            if(pq.size()>B){
+                pq.poll();
+            }
+        }
+
+        while(pq.size()>0){
+            result.add(pq.peek());
+            pq.poll();
+        }
+
+        return result;
+
+    }
+}
