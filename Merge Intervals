@@ -1,0 +1,82 @@
+public class Solution {
+    public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
+        
+
+        if(newInterval.start>newInterval.end){
+            int temp = newInterval.start;
+            newInterval.start=newInterval.end;
+            newInterval.end=temp;
+        }
+
+        int s = newInterval.start;
+        int e = newInterval.end;
+        int index = 0;
+        int n = intervals.size()-1;
+
+        for(Interval l: intervals){
+
+            //case 1
+            if(s>=l.start && e<=l.end){
+                Interval i = new Interval();
+                i.start = l.start;
+                i.end = l.end;
+                intervals.remove(index);
+                intervals.add(index,i);
+                //System.out.print("1");
+                return intervals;
+                
+            }
+
+            //case 2
+            if(s<=l.start && e>=l.end){
+                Interval i = new Interval();
+                i.start = s;
+                i.end = e;
+                intervals.remove(index);
+                intervals.add(index,i);
+                //System.out.print("2");
+                return intervals;
+                
+            }
+
+            //case 3
+            if(s>l.start && s<l.end){
+                Interval i = new Interval();
+                i.start = l.start;
+                i.end = e;
+                intervals.remove(index);
+                intervals.add(index,i);
+                //System.out.print("3");
+                return intervals;
+                
+            }
+
+            //case 4
+            if(e>l.start && e<l.end){
+                Interval i = new Interval();
+                i.start = s;
+                i.end = l.end;
+                intervals.remove(index);
+                intervals.add(index,i);
+                //System.out.print("4");
+                return intervals;
+            }
+
+            index++; 
+        }
+
+        index=0;
+
+        if(s>intervals.get(n).end){
+            intervals.add(n+1,newInterval);
+        }else if(e<intervals.get(0).start){
+            intervals.add(0,newInterval);
+        }else{
+            for(int j=1;j<=n;j++){
+
+            }
+        }
+    
+        return intervals;
+    }
+}
