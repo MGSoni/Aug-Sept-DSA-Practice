@@ -1,0 +1,40 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> subsets(ArrayList<Integer> A) {
+
+        ArrayList<ArrayList<Integer>> result = new ArrayList();
+        Collections.sort(A);
+        backtrack(result,new ArrayList<Integer>(), 0,A);
+        
+        Collections.sort(result,(ArrayList<Integer> X, ArrayList<Integer> Y)->{
+            for(int i=0;i<X.size() && i<Y.size();i++){
+                if(X.get(i)<Y.get(i)){
+                    return -1;
+                }
+                if(X.get(i)>Y.get(i)){
+                    return 1;
+                }
+            }
+            if(X.size()<Y.size()){
+                return -1;
+            }
+            return 1;
+        });
+        
+        return result;
+    }
+
+    private void backtrack(ArrayList<ArrayList<Integer>> result, ArrayList<Integer> current, int n, ArrayList<Integer> A){
+        if(n>=A.size()){
+            if(n==A.size()){
+                ArrayList<Integer> temp = new ArrayList<>(current);
+                result.add(temp);
+            }
+            return;
+        }
+
+        current.add(A.get(n));
+        backtrack(result,current,n+1,A);
+        current.remove(current.size()-1);
+        backtrack(result,current,n+1,A);
+    }
+}
