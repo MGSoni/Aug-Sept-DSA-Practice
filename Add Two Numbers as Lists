@@ -1,0 +1,82 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+public class Solution {
+    public ListNode addTwoNumbers(ListNode A, ListNode B) {
+
+        ListNode dummy = new ListNode(0);
+        ListNode temp = dummy;
+        int carry = 0;
+
+        while(A!=null && B!=null){
+            int sum=A.val+B.val+carry;
+            if(sum>=10){
+
+                carry = sum/10;
+                ListNode newNode = new ListNode(sum%10);
+                temp.next=newNode;
+            }else{
+                ListNode newNode = new ListNode(sum);
+                temp.next=newNode;
+                carry = 0;
+            }
+            A=A.next;
+            B=B.next;
+            temp=temp.next;
+        }
+
+        if(A==null){
+           
+            while(B!=null){
+                int sum=B.val+carry;
+                
+                if(sum>=10){
+                carry = sum/10;
+                ListNode newNode = new ListNode(sum%10);
+                temp.next=newNode;
+            }else{
+                ListNode newNode = new ListNode(sum);
+                temp.next=newNode;
+                carry = 0;
+            }
+                B=B.next;
+                temp=temp.next;
+            }
+            
+            
+        }
+        if(B==null){
+             
+            while(A!=null){
+                 
+                int sum=A.val+carry;
+                if(sum>=10){
+                    carry = sum/10;
+                    ListNode newNode = new ListNode(sum%10);
+                    temp.next=newNode;
+                }else{
+                    ListNode newNode = new ListNode(sum);
+                    temp.next=newNode;
+                    carry = 0;
+                }
+                A=A.next;
+                temp=temp.next;
+            }
+           
+        }
+            
+            if(carry!=0){
+                
+                ListNode newNode = new ListNode(carry);
+                temp.next=newNode;
+            }
+
+        return dummy.next;
+
+    }
+}
