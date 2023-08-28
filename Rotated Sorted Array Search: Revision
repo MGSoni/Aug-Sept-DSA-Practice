@@ -1,0 +1,28 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        return helper(nums,0,nums.length-1,target);
+    }
+
+    private int helper(int[] nums,int l ,int r, int target){
+        if(l>r){
+            return -1;
+        }
+        int mid = l+(r-l)/2;
+
+        if( target == nums[mid]){
+            return mid;
+        }else if(nums[r]>nums[mid]){
+            if(target>nums[mid] && target<=nums[r]){
+                return helper(nums,mid+1,r,target);
+            }else{
+                return helper(nums,l,mid-1,target);
+            }
+        }else{
+            if(target<nums[mid] && target>=nums[l]){
+                return helper(nums,l,mid-1,target);
+            }else{
+                return helper(nums,mid+1,r,target);
+            }
+        }
+    }
+}
