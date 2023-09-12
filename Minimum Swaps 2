@@ -1,0 +1,12 @@
+public class Solution {
+    public int solve(ArrayList<Integer> A) {
+        int ans = 0;
+        for(int i = 0 ; i < A.size() ; i++ ){
+            while(A.get(i) != i){
+                ans++;
+                Collections.swap(A, i, A.get(i));
+            }
+        }
+        return ans;
+    }
+}
