@@ -1,0 +1,44 @@
+public class Solution {
+    public int[] dNums(int[] A, int B) {
+        int N=A.length;
+        int[] result = new int[N-B+1];
+
+        Map<Integer,Integer> map = new HashMap<>();
+
+        for(int i=0;i<B;i++){
+            if(map.containsKey(A[i])){
+                int x=map.get(A[i]);
+                map.put(A[i],++x);
+            }else{
+                map.put(A[i],1);
+            }
+        }
+        int index=0;
+        result[index]=map.size();
+        index++;
+        for(int i=B;i<N;i++){
+            int elementToBeRemoved=A[i-B];
+            int elementToBeAdded=A[i];
+
+            if(map.containsKey(elementToBeAdded)){
+                int x=map.get(elementToBeAdded);
+                map.put(elementToBeAdded,++x);
+            }else{
+                map.put(elementToBeAdded,1);
+            }
+
+            if(map.containsKey(elementToBeRemoved)){
+                int x=map.get(elementToBeRemoved);
+                x--;
+                if(x==0){
+                    map.remove(elementToBeRemoved);
+                }else{
+                    map.put(elementToBeRemoved,x);
+                }
+            }
+            result[index]=map.size();
+            index++;
+        }
+        return result;
+    }
+}
